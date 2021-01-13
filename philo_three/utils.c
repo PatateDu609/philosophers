@@ -6,11 +6,11 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:03:38 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/13 17:19:58 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/13 17:21:25 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "philo_three.h"
 
 long	ft_timestamp(t_data *data)
 {

@@ -1,10 +1,13 @@
 NAME			=	$(shell pwd | rev | cut -d'/' -f1 | rev)
 CC				=	gcc
-OBJS			=	$(SRCS:.cpp=.o)
+OBJS			=	$(SRCS:.c=.o)
 CFLAGS			=	-Wall -Werror -Wextra
 LDFLAGS			=	-fsanitize=address -fsanitize=leak -g
 
-SRCS			=	main.c
+SRCS			=	main.c		\
+					print.c		\
+					utils.c		\
+					init.c		\
 
 %.o:			%.cpp
 				echo $(NAME)
