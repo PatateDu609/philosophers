@@ -1,7 +1,10 @@
-#include <stdio.h>
+#include "philo_one.h"
 
-int main()
+int main(int ac, char **av)
 {
-	printf("Hello World!");
+	t_data	data;
+
+	if (!ft_init(&data, ac, av))
+		return (usage());
 	return (0);
 }

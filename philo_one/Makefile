@@ -4,7 +4,10 @@ OBJS			=	$(SRCS:.c=.o)
 CFLAGS			=	-Wall -Werror -Wextra
 LDFLAGS			=	-fsanitize=address -fsanitize=leak -g
 
-SRCS			=	main.c
+SRCS			=	main.c		\
+					print.c		\
+					utils.c		\
+					init.c		\
 
 %.o:			%.cpp
 				echo $(NAME)
