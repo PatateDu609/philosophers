@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 19:36:54 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/13 20:49:26 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/25 14:45:26 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,51 @@ static void	ft_leave_fork(t_philo *philo)
 	pthread_mutex_unlock(philo->data->m_forks + second);
 }
 
-void	ft_action(t_philo *philo, t_events event)
+static void	ft_eat(t_philo *philo)
 {
+	long last_eat;
+
+	last_eat = print_message(EATING, philo);
+	pthread_mutex_lock(philo->data->m_access + philo->nb);
+	philo->eating = 1;
+	philo->eaten++;
+	philo->last_eat = last_eat;
+	pthread_mutex_unlock(philo->data->m_access + philo->nb);
+	usleep(philo->data->time_eat * 1000);
+	pthread_mutex_lock(philo->data->m_access + philo->nb);
+	philo->eating = 0;
+	pthread_mutex_unlock(philo->data->m_access + philo->nb);
+}
+
+static int ft_finish(t_philo *philo)
+{
+	pthread_mutex_lock(philo->data->m_access + philo->nb);
+	philo->running = 0;
+	pthread_mutex_unlock(philo->data->m_access + philo->nb);
+	return (0);
+}
+
+int	ft_action(t_philo *philo, t_events event)
+{
+	if (philo->data->finish && event != EAT && event != LEAVE_FORK)
+		return (ft_finish(philo));
+	else if (philo->data->finish && event == EAT)
+		return (0);
 	if (event == TAKE_FORK)
 	{
 		ft_take_fork(philo);
-		return ;
+		return (1);
 	}
-	if (event == LEAVE_FORK)
+	else if (event == LEAVE_FORK)
 		ft_leave_fork(philo);
+	else if (event == THINK)
+		print_message(THINKING, philo);
 	else if (event == SLEEP)
 	{
 		print_message(SLEEPING, philo);
-		usleep(philo->data->time_sleep);
+		usleep(philo->data->time_sleep * 1000);
 	}
 	else if (event == EAT)
-	{
-		print_message(EATING, philo);
-		usleep(philo->data->time_eat);
-	}
+		ft_eat(philo);
+	return (1);
 }
