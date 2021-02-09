@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 22:48:19 by gboucett          #+#    #+#             */
-/*   Updated: 2021/02/09 16:03:03 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:22:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_two.h"
 
-void	*ft_philo(void *arg)
+void			*ft_philo(void *arg)
 {
 	t_philo	*philo;
 
@@ -39,7 +39,35 @@ void	*ft_philo(void *arg)
 	return (NULL);
 }
 
-static void ft_monitor(t_data *data, t_philo *philo)
+static int		ft_check_philos(t_data *data, t_philo *philo, int *quota)
+{
+	int		i;
+	int		end;
+	long	ts;
+
+	end = 0;
+	i = 0;
+	while (i < data->nb_philos)
+	{
+		sem_wait(data->sem_access[i]);
+		if (data->nb_eat > 0 && philo[i].eaten >= data->nb_eat)
+			quota[i] = 1;
+		ts = ft_timestamp(data);
+		if (!philo[i].eating
+			&& philo[i].last_eat + data->time_die < ts)
+		{
+			print_message(DIED, philo + i);
+			end = 1;
+		}
+		sem_post(data->sem_access[i++]);
+		if (end)
+			break ;
+		usleep(100);
+	}
+	return (end);
+}
+
+static void		ft_monitor(t_data *data, t_philo *philo)
 {
 	int	i;
 	int	end;
@@ -51,24 +79,7 @@ static void ft_monitor(t_data *data, t_philo *philo)
 	while (!end)
 	{
 		i = 0;
-		while (i < data->nb_philos)
-		{
-			sem_wait(data->sem_access[i]);
-			if (data->nb_eat > 0 && philo[i].eaten >= data->nb_eat)
-				quota[i] = 1;
-			long ts = ft_timestamp(data);
-			if (!philo[i].eating
-				&& philo[i].last_eat + data->time_die < ts)
-			{
-				print_message(DIED, philo + i);
-				end = 1;
-			}
-			sem_post(data->sem_access[i++]);
-			if (end)
-				break ;
-			usleep(100);
-		}
-		if (end)
+		if (ft_check_philos(data, philo, quota))
 			break ;
 		i = 0;
 		while (i < data->nb_philos && quota[i])
@@ -79,7 +90,7 @@ static void ft_monitor(t_data *data, t_philo *philo)
 	free(quota);
 }
 
-static void ft_wait_death(t_data *data, t_philo* philo)
+static void		ft_wait_death(t_data *data, t_philo *philo)
 {
 	int count;
 	int i;
@@ -99,10 +110,11 @@ static void ft_wait_death(t_data *data, t_philo* philo)
 	}
 }
 
-int	ft_simulate(t_data *data, t_philo *philo)
+int				ft_simulate(t_data *data, t_philo *philo)
 {
-	int i = 0;
+	int		i;
 
+	i = 0;
 	data->start = ft_timestamp(NULL);
 	while (i < data->nb_philos)
 	{

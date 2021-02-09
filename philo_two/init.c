@@ -6,27 +6,16 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:12:35 by gboucett          #+#    #+#             */
-/*   Updated: 2021/02/09 16:13:17 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:24:02 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_two.h"
 
-int	ft_init_semaphore(t_data *data)
+static int	ft_init_access(t_data *data)
 {
 	int		i;
 
-	sem_unlink("/forks");
-	data->sem_forks = sem_open("/forks", O_CREAT, 0644, data->nb_philos);
-	if (data->sem_forks == SEM_FAILED)
-		return (0);
-	sem_unlink("/finish");
-	data->sem_finish = sem_open("/finish", O_CREAT, 0644, 1);
-	if (data->sem_finish == SEM_FAILED)
-		return (0);
-	data->philosophers = malloc(sizeof(pthread_t) * data->nb_philos);
-	if (!data->philosophers)
-		return (0);
 	data->sem_access = malloc(sizeof(sem_t *) * data->nb_philos);
 	if (!data->sem_access)
 		return (0);
@@ -42,7 +31,23 @@ int	ft_init_semaphore(t_data *data)
 	return (1);
 }
 
-t_philo	*ft_init_philos(t_data *data)
+int			ft_init_semaphore(t_data *data)
+{
+	sem_unlink("/forks");
+	data->sem_forks = sem_open("/forks", O_CREAT, 0644, data->nb_philos);
+	if (data->sem_forks == SEM_FAILED)
+		return (0);
+	sem_unlink("/finish");
+	data->sem_finish = sem_open("/finish", O_CREAT, 0644, 1);
+	if (data->sem_finish == SEM_FAILED)
+		return (0);
+	data->philosophers = malloc(sizeof(pthread_t) * data->nb_philos);
+	if (!data->philosophers)
+		return (0);
+	return (ft_init_access(data));
+}
+
+t_philo		*ft_init_philos(t_data *data)
 {
 	t_philo		*philos;
 	int			i;
@@ -63,7 +68,7 @@ t_philo	*ft_init_philos(t_data *data)
 	return (philos);
 }
 
-int	ft_init(t_data **data, int ac, char **av)
+int			ft_init(t_data **data, int ac, char **av)
 {
 	if (ac != 5 && ac != 6)
 		return (0);
