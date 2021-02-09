@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 19:31:13 by gboucett          #+#    #+#             */
-/*   Updated: 2021/02/08 23:00:38 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 01:56:49 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,9 @@ int main(int ac, char **av)
 	ft_simulate(data, philos);
 
 	free(philos);
+
+	close(threads);
+	close(threads2);
+	close(datas);
 	return ((ft_free_all(data, EXIT_SUCCESS)));
 }
