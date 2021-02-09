@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 15:00:29 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/25 14:46:30 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/08 23:03:28 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void ft_monitor(t_data *data, t_philo *philo)
 
 	end = 0;
 	quota = malloc(sizeof(int) * data->nb_philos);
+	memset(quota, 0, sizeof(int) * data->nb_philos);
 	while (!end)
 	{
 		i = 0;
