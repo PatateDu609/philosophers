@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:59:53 by gboucett          #+#    #+#             */
-/*   Updated: 2021/02/09 15:14:37 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 16:59:45 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-typedef enum e_events
+typedef enum	e_events
 {
 	DIED = -1,
 	EATING,
@@ -35,9 +35,9 @@ typedef enum e_events
 	EAT,
 	SLEEP,
 	LEAVE_FORK,
-}	t_events;
+}				t_events;
 
-typedef struct s_data
+typedef struct			s_data
 {
 	long				start;
 	int					finish;
@@ -51,32 +51,30 @@ typedef struct s_data
 	pthread_mutex_t		*m_forks;
 	pthread_mutex_t		*m_access;
 	pthread_t			*philosophers;
-}	t_data;
+}						t_data;
 
-typedef struct s_philo
+typedef struct			s_philo
 {
-	int		nb;
-	int		eaten;
-	int		eating;
-	long	last_eat;
-	int		running;
-	t_data	*data;
-}	t_philo;
+	int					nb;
+	int					eaten;
+	int					eating;
+	long				last_eat;
+	int					running;
+	t_data				*data;
+}						t_philo;
 
-long	print_message(t_events event, t_philo *philo);
-long	ft_timestamp(t_data *data);
-int		ft_atoi(char *str);
-int		usage(void);
+long					print_message(t_events event, t_philo *philo);
+long					ft_timestamp(t_data *data);
+int						ft_atoi(char *str);
+int						usage(void);
 
-int		ft_free_all(t_data *data, int status);
+int						ft_free_all(t_data *data, int status);
 
-int		ft_action(t_philo *philo, t_events event);
-int		ft_simulate(t_data *data, t_philo *philo);
+int						ft_action(t_philo *philo, t_events event);
+int						ft_simulate(t_data *data, t_philo *philo);
 
-int		ft_init_mutex(t_data *data);
-t_philo	*ft_init_philos(t_data *data);
-int		ft_init(t_data **data, int ac, char **av);
-
-extern int threads;
+int						ft_init_mutex(t_data *data);
+t_philo					*ft_init_philos(t_data *data);
+int						ft_init(t_data **data, int ac, char **av);
 
 #endif

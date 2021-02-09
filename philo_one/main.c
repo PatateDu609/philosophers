@@ -6,15 +6,11 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 19:25:57 by gboucett          #+#    #+#             */
-/*   Updated: 2021/02/09 16:10:06 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:01:04 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
-
-#include "debug.h"
-
-int threads;
 
 int	main(int ac, char **av)
 {

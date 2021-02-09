@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:03:38 by gboucett          #+#    #+#             */
-/*   Updated: 2021/02/09 15:57:20 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:13:14 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ long	ft_timestamp(t_data *data)
 	return (timestamp);
 }
 
-int	ft_atoi(char *str)
+int		ft_atoi(char *str)
 {
 	int		result;
 
@@ -36,7 +36,7 @@ int	ft_atoi(char *str)
 	return (result);
 }
 
-int	usage(void)
+int		usage(void)
 {
 	ssize_t	i;
 

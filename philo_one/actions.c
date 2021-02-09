@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 19:36:54 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/25 14:45:26 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:00:23 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-static void	ft_take_fork(t_philo *philo)
+static void		ft_take_fork(t_philo *philo)
 {
 	int		tmp;
 	int		first;
@@ -32,7 +32,7 @@ static void	ft_take_fork(t_philo *philo)
 	print_message(TAKEN_FORK, philo);
 }
 
-static void	ft_leave_fork(t_philo *philo)
+static void		ft_leave_fork(t_philo *philo)
 {
 	int		first;
 	int		second;
@@ -43,7 +43,7 @@ static void	ft_leave_fork(t_philo *philo)
 	pthread_mutex_unlock(philo->data->m_forks + second);
 }
 
-static void	ft_eat(t_philo *philo)
+static void		ft_eat(t_philo *philo)
 {
 	long last_eat;
 
@@ -59,7 +59,7 @@ static void	ft_eat(t_philo *philo)
 	pthread_mutex_unlock(philo->data->m_access + philo->nb);
 }
 
-static int ft_finish(t_philo *philo)
+static int		ft_finish(t_philo *philo)
 {
 	pthread_mutex_lock(philo->data->m_access + philo->nb);
 	philo->running = 0;
@@ -67,7 +67,7 @@ static int ft_finish(t_philo *philo)
 	return (0);
 }
 
-int	ft_action(t_philo *philo, t_events event)
+int				ft_action(t_philo *philo, t_events event)
 {
 	if (philo->data->finish && event != EAT && event != LEAVE_FORK)
 		return (ft_finish(philo));

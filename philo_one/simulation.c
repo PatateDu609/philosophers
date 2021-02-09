@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 15:00:29 by gboucett          #+#    #+#             */
-/*   Updated: 2021/02/09 15:50:09 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:11:31 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-void	*ft_philo(void *arg)
+void			*ft_philo(void *arg)
 {
 	t_philo	*philo;
 
@@ -39,36 +39,46 @@ void	*ft_philo(void *arg)
 	return (NULL);
 }
 
-static void ft_monitor(t_data *data, t_philo *philo)
+static int		ft_check_philos(t_data *data, t_philo *philo, int *quota)
 {
-	int	i;
-	int	end;
-	int *quota;
+	int		i;
+	int		end;
+	long	ts;
+
+	i = 0;
+	end = 0;
+	while (i < data->nb_philos)
+	{
+		pthread_mutex_lock(data->m_access + i);
+		if (data->nb_eat > 0 && philo[i].eaten >= data->nb_eat)
+			quota[i] = 1;
+		ts = ft_timestamp(data);
+		if (!philo[i].eating
+			&& philo[i].last_eat + data->time_die < ts)
+		{
+			print_message(DIED, philo + i);
+			end = 1;
+		}
+		pthread_mutex_unlock(data->m_access + i++);
+		if (end)
+			break ;
+		usleep(100);
+	}
+	return (end);
+}
+
+static void		ft_monitor(t_data *data, t_philo *philo)
+{
+	int		end;
+	int		*quota;
+	int		i;
 
 	end = 0;
 	quota = malloc(sizeof(int) * data->nb_philos);
-	// memset(quota, 0, sizeof(int) * data->nb_philos);
+	memset(quota, 0, sizeof(int) * data->nb_philos);
 	while (!end)
 	{
-		i = 0;
-		while (i < data->nb_philos)
-		{
-			pthread_mutex_lock(data->m_access + i);
-			if (data->nb_eat > 0 && philo[i].eaten >= data->nb_eat)
-				quota[i] = 1;
-			long ts = ft_timestamp(data);
-			if (!philo[i].eating
-				&& philo[i].last_eat + data->time_die < ts)
-			{
-				print_message(DIED, philo + i);
-				end = 1;
-			}
-			pthread_mutex_unlock(data->m_access + i++);
-			if (end)
-				break ;
-			usleep(100);
-		}
-		if (end)
+		if (ft_check_philos(data, philo, quota))
 			break ;
 		i = 0;
 		while (i < data->nb_philos && quota[i])
@@ -79,10 +89,10 @@ static void ft_monitor(t_data *data, t_philo *philo)
 	free(quota);
 }
 
-static void ft_wait_death(t_data *data, t_philo* philo)
+static void		ft_wait_death(t_data *data, t_philo *philo)
 {
-	int count;
-	int i;
+	int		count;
+	int		i;
 
 	count = 0;
 	while (count != data->nb_philos)
@@ -99,10 +109,11 @@ static void ft_wait_death(t_data *data, t_philo* philo)
 	}
 }
 
-int	ft_simulate(t_data *data, t_philo *philo)
+int				ft_simulate(t_data *data, t_philo *philo)
 {
-	int i = 0;
+	int		i;
 
+	i = 0;
 	data->start = ft_timestamp(NULL);
 	while (i < data->nb_philos)
 	{

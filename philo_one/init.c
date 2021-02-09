@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:12:35 by gboucett          #+#    #+#             */
-/*   Updated: 2021/02/09 15:17:30 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:00:49 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-int	ft_init_mutex(t_data *data)
+int		ft_init_mutex(t_data *data)
 {
 	int		i;
 
@@ -54,7 +54,7 @@ t_philo	*ft_init_philos(t_data *data)
 	return (philos);
 }
 
-int	ft_init(t_data **data, int ac, char **av)
+int		ft_init(t_data **data, int ac, char **av)
 {
 	if (ac != 5 && ac != 6)
 		return (0);
