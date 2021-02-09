@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 19:31:13 by gboucett          #+#    #+#             */
-/*   Updated: 2021/02/09 15:46:35 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:34:39 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
 
-int main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_data	*data;
 	t_philo	*philos;

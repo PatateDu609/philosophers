@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 19:29:39 by gboucett          #+#    #+#             */
-/*   Updated: 2021/02/09 01:51:40 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:34:30 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
 
-static char	*ft_event_to_string(t_events event)
+static char		*ft_event_to_string(t_events event)
 {
 	if (event == DIED)
 		return ("died");
@@ -27,7 +27,7 @@ static char	*ft_event_to_string(t_events event)
 	return ("Unknown action");
 }
 
-long	print_message(t_events event, t_philo *philo)
+long			print_message(t_events event, t_philo *philo)
 {
 	long	ts;
 

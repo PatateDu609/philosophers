@@ -11,6 +11,7 @@ SRCS			=	main.c			\
 					clear.c			\
 					simulation.c	\
 					actions.c		\
+					philo.c			\
 					# debug.c			\
 
 %.o:			%.cpp
