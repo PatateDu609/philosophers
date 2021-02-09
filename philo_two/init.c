@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:12:35 by gboucett          #+#    #+#             */
-/*   Updated: 2021/02/08 22:05:16 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 16:13:17 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	ft_init_semaphore(t_data *data)
 	data->sem_forks = sem_open("/forks", O_CREAT, 0644, data->nb_philos);
 	if (data->sem_forks == SEM_FAILED)
 		return (0);
-	sem_unlink("/write");
-	data->sem_write = sem_open("/write", O_CREAT, 0644, 1);
-	if (data->sem_write == SEM_FAILED)
+	sem_unlink("/finish");
+	data->sem_finish = sem_open("/finish", O_CREAT, 0644, 1);
+	if (data->sem_finish == SEM_FAILED)
 		return (0);
 	data->philosophers = malloc(sizeof(pthread_t) * data->nb_philos);
 	if (!data->philosophers)
@@ -70,10 +70,11 @@ int	ft_init(t_data **data, int ac, char **av)
 	*data = malloc(sizeof(t_data));
 	if (!*data)
 		return (0);
-	(*data)->sem_write = SEM_FAILED;
+	(*data)->sem_finish = SEM_FAILED;
 	(*data)->sem_forks = SEM_FAILED;
 	(*data)->sem_access = NULL;
 	(*data)->philosophers = NULL;
+	(*data)->start = 0;
 	(*data)->nb_philos = ft_atoi(av[1]);
 	(*data)->time_die = ft_atoi(av[2]);
 	(*data)->time_eat = ft_atoi(av[3]);

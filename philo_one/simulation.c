@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 15:00:29 by gboucett          #+#    #+#             */
-/*   Updated: 2021/02/08 23:03:28 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 15:50:09 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void ft_monitor(t_data *data, t_philo *philo)
 
 	end = 0;
 	quota = malloc(sizeof(int) * data->nb_philos);
-	memset(quota, 0, sizeof(int) * data->nb_philos);
+	// memset(quota, 0, sizeof(int) * data->nb_philos);
 	while (!end)
 	{
 		i = 0;
@@ -63,7 +63,6 @@ static void ft_monitor(t_data *data, t_philo *philo)
 				print_message(DIED, philo + i);
 				end = 1;
 			}
-			dprintf(threads, "i = %d, eating ? %d, end = %d, limit = %ld, current = %ld\n", i, philo[i].eating, end, philo[i].last_eat + data->time_die, ts);
 			pthread_mutex_unlock(data->m_access + i++);
 			if (end)
 				break ;
@@ -111,7 +110,7 @@ int	ft_simulate(t_data *data, t_philo *philo)
 			return (0);
 		if (pthread_detach(data->philosophers[i]))
 			return (0);
-		usleep(100);
+		usleep(10);
 		i++;
 	}
 	ft_monitor(data, philo);

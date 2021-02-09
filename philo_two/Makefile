@@ -1,8 +1,8 @@
 NAME			=	$(shell pwd | rev | cut -d'/' -f1 | rev)
 CC				=	gcc
 OBJS			=	$(SRCS:.c=.o)
-CFLAGS			=	-Wall -Werror -Wextra -g
-LDFLAGS			=	-fsanitize=address -fsanitize=leak -pthread -g
+CFLAGS			=	-Wall -Werror -Wextra -O3
+LDFLAGS			=	-pthread
 
 SRCS			=	main.c			\
 					print.c			\
@@ -11,7 +11,7 @@ SRCS			=	main.c			\
 					clear.c			\
 					actions.c		\
 					simulation.c	\
-					debug.c			\
+					# debug.c			\
 
 %.o:			%.cpp
 				echo $(NAME)

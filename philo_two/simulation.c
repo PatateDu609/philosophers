@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 22:48:19 by gboucett          #+#    #+#             */
-/*   Updated: 2021/02/08 23:04:49 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 16:03:03 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ static void ft_monitor(t_data *data, t_philo *philo)
 				print_message(DIED, philo + i);
 				end = 1;
 			}
-			dprintf(threads2, "i = %d, eaten = %d, quota[i] = %d\n", i, philo[i].eaten, quota[i]);
-			dprintf(threads, "i = %d, eating ? %d, end = %d, limit = %ld, current = %ld\n", i, philo[i].eating, end, philo[i].last_eat + data->time_die, ts);
 			sem_post(data->sem_access[i++]);
 			if (end)
 				break ;

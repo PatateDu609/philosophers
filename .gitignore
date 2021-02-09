@@ -5,3 +5,4 @@ philo_three/philo_three
 **/test*
 **/debug*
 .vscode
+forbidden.sh

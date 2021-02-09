@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:12:35 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/23 23:16:18 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 15:17:30 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	ft_init_mutex(t_data *data)
 		if (pthread_mutex_init(data->m_forks + i, NULL) ||
 			pthread_mutex_init(data->m_access + i, NULL))
 			return (0);
-	if (pthread_mutex_init(&data->m_write, NULL))
-		return (0);
 	return (1);
 }
 
@@ -72,6 +70,7 @@ int	ft_init(t_data **data, int ac, char **av)
 	(*data)->time_sleep = ft_atoi(av[4]);
 	(*data)->nb_eat = -2;
 	(*data)->finish = 0;
+	(*data)->start = 0;
 	if (ac == 6)
 		(*data)->nb_eat = ft_atoi(av[5]);
 	return ((*data)->nb_philos != -1 && (*data)->time_die != -1

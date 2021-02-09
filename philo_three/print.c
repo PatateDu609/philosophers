@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/08 19:29:39 by gboucett          #+#    #+#             */
+/*   Updated: 2021/02/09 01:51:40 by gboucett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_three.h"
 
 static char	*ft_event_to_string(t_events event)
@@ -12,13 +24,16 @@ static char	*ft_event_to_string(t_events event)
 		return ("is eating");
 	if (event == THINKING)
 		return ("is thinking");
-	return (NULL);
+	return ("Unknown action");
 }
 
-void	print_message(t_events event, t_philo *philo)
+long	print_message(t_events event, t_philo *philo)
 {
 	long	ts;
 
 	ts = ft_timestamp(philo->data);
+	if (philo->data->finish)
+		return (ts);
 	printf("%ld %d %s\n", ts, philo->nb, ft_event_to_string(event));
+	return (ts);
 }

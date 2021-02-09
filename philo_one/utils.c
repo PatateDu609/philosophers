@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 13:03:38 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/13 17:19:58 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 15:57:20 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ int	ft_atoi(char *str)
 
 int	usage(void)
 {
-	write(2, "Usage: number_of_philosophers time_to_die time_to_eat "
+	ssize_t	i;
+
+	i = write(2, "Usage: number_of_philosophers time_to_die time_to_eat "
 		"time_to_sleep [number_of_times_each_philosopher_must_eat]\n", 112);
+	(void)i;
 	return (EXIT_FAILURE);
 }

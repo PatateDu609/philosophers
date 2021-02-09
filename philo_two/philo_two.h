@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:59:53 by gboucett          #+#    #+#             */
-/*   Updated: 2021/02/08 22:58:33 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 04:05:57 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_data
 	int					nb_eat;
 
 	pthread_t			*philosophers;
-	sem_t				*sem_write;
+	sem_t				*sem_finish;
 	sem_t				*sem_forks;
 	sem_t				**sem_access;
 }	t_data;

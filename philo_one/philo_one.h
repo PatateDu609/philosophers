@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:59:53 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/24 14:26:42 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 15:14:37 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <time.h>
+# include <string.h>
 # include <sys/time.h>
 # include <pthread.h>
 
@@ -49,7 +50,6 @@ typedef struct s_data
 
 	pthread_mutex_t		*m_forks;
 	pthread_mutex_t		*m_access;
-	pthread_mutex_t		m_write;
 	pthread_t			*philosophers;
 }	t_data;
 

@@ -6,28 +6,18 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 20:09:10 by gboucett          #+#    #+#             */
-/*   Updated: 2021/02/09 04:06:02 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/02/09 04:06:23 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_two.h"
+#include "philo_three.h"
 
 int	ft_free_all(t_data *data, int status)
 {
-	int	i;
-
 	if (data->sem_forks != SEM_FAILED)
 		sem_close(data->sem_forks);
-	if (data->sem_finish != SEM_FAILED)
-		sem_close(data->sem_finish);
-	i = 0;
-	while (i < data->nb_philos)
-	{
-		if (data->sem_access[i] != SEM_FAILED)
-			sem_close(data->sem_access[i]);
-		i++;
-	}
-	free(data->sem_access);
+	if (data->sem_quota != SEM_FAILED)
+		sem_close(data->sem_quota);
 	free(data->philosophers);
 	free(data);
 	return (status);
